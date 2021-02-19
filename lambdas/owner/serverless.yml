@@ -1,0 +1,18 @@
+
+service: owner
+# app and org for use with dashboard.serverless.com
+#app: your-app-name
+#org: your-org-name
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: python3.8
+  region : us-east-1
+  role : arn:aws:iam::456240511584:role/assignment2-owner-role
+
+functions:
+  main:
+    handler: handler.main
+   

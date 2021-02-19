@@ -1,0 +1,123 @@
+swagger: '2.0'
+info:
+  title: OTP Validation API
+  description: 'OTP Validation API'
+  version: 1.0.0
+schemes:
+  - https
+basePath: /v1
+produces:
+  - application/json
+paths:
+  /otp_validation:
+    post:
+      summary: OTP validation API
+      description: |
+        This API takes a given OTP value and validates it. 
+      tags:
+        - NLU
+      operationId: validateOTP
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/AuthRequest'
+      responses:
+        '200':
+          description: Authentication Response
+          schema:
+            $ref: '#/definitions/AuthResponse'
+        '403':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        '500':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /owner:
+    post:
+      summary: The endpoint for the Owner handler
+      description: |
+        This API is trigerred when the onwer prompts to store
+        unknown visitor information in the db and send an OTP
+        to the visitor for validation.
+      tags:
+        - Owner
+      operationId: sendMessage
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/OwnerRequest'
+      responses:
+        '200':
+          description: OK response from app
+          schema:
+            $ref: '#/definitions/OwnerResponse'
+        '403':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        '500':
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  AuthRequest:
+    type: object
+    properties:
+      user-id:
+        type: string
+      otp:
+        type: string
+  AuthResponse:
+    type: object
+    properties:
+      user-name:
+        type: string
+      auth-status:
+        type: string
+      message:
+        type: string
+  OwnerRequest:
+    type: object
+    properties:
+      faceId : 
+        type: string
+      name :
+        type : string
+      phoneNumber :
+        type : string
+      photos :
+        type : array
+        items :
+         $ref : '#/definitions/Photo'
+  Photo :
+    type : object 
+    properties :
+      objectKey :
+        type : string
+      bucket :
+        type : string
+      createdTimestamp :
+        type : string
+  OwnerResponse:
+    type: object
+    properties:
+      message:
+        type: string
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string

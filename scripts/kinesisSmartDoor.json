@@ -1,0 +1,20 @@
+{
+       "Name": "smartDoor",
+       "Input": {
+              "KinesisVideoStream": {
+                     "Arn": "arn:aws:kinesisvideo:us-east-1:456240511584:stream/kvs1/1604348007888"
+              }
+       },
+       "Output": {
+              "KinesisDataStream": {
+                     "Arn": "arn:aws:kinesis:us-east-1:456240511584:stream/kds1"
+              }
+       },
+       "RoleArn": "arn:aws:iam::456240511584:role/smartDoor",
+       "Settings": {
+              "FaceSearch": {
+                     "CollectionId": "smartDoor",
+                     "FaceMatchThreshold": 85.5
+              }
+       }
+}

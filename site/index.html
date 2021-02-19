@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {font-family: Arial, Helvetica, sans-serif; background-color: black;}
+* {box-sizing: border-box;}
+
+h1 {
+  color: white;
+}
+
+h3 {
+  color: white;
+}
+
+p {
+  color: white;
+}
+
+label {
+  color: white;
+}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+input[type=submit] {
+  background-color: #00ffff;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #03e8f3;
+}
+
+.container {
+  border-radius: 5px;
+  background-color: #000e97;
+  padding: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<h3>Contact Form</h3>
+
+<div class="container">
+  <form action="https://j5m0ylneta.execute-api.us-east-1.amazonaws.com/deploy/owner" method="post">
+    <label for="fname">Visitor name</label>
+    <input type="text" id="fname" name="firstname" placeholder="Visitor name..">
+
+
+    <label for="phone">Enter the phone number of your visitor so that their one-time password can be texted to them (formatted with country code like +1 123-456-7890)</label>
+
+    <input type="tel" id="phone" name="phone"
+           pattern="+[0-9]{2} [0-9]{3}-[0-9]{3}-[0-9]{4}"
+           required>
+
+           <br>
+    <!-- <p hidden id='face-id'></p> -->
+    <input type='hidden' id='faceid' name='faceid'>
+    <input type='hidden' id='imgname' name='imgname'>
+
+    <input type="submit" value="Submit">
+
+  </form>
+</div>
+<script>
+  function getUrlVars()
+{
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+
+    for(var i = 0; i < hashes.length; i++)
+        {
+         hash = hashes[i].split('=');
+         vars.push(hash[0]);
+         vars[hash[0]] = hash[1];
+         }
+
+     return vars;
+}
+
+var get = getUrlVars();
+document.getElementById('faceid').value = get['faceid'];
+document.getElementById('imgname').value = get['imgname'];
+</script>
+
+</body>
+</html>
